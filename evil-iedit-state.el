@@ -166,14 +166,14 @@ If INTERACTIVE is non-nil then COMMAND is called interactively."
        ;; force expand-region temporary overlay map exit
        (setq overriding-terminal-local-map nil))
 
-     (advice-add 'er/prepare-for-more-expansions-internal :around
-                 (lambda (orig-fun &rest args)
-                   (let ((result (apply orig-fun args)))
-                     (let ((default-msg (car result))
-                           (default-bindings (cdr result)))
-                       (cons (concat default-msg ", e to edit")
-                             (add-to-list 'default-bindings
-                                         '("e" evil-iedit-state/iedit-mode-from-expand-region)))))))))
+     (define-advice er/prepare-for-more-expansions-internal
+         (:around (orig-fun &rest args) evil-iedit-state)
+       (let* ((result (apply orig-fun args))
+              (default-msg (car result))
+              (default-bindings (cdr result)))
+         (cons (concat default-msg ", e to edit")
+               (add-to-list 'default-bindings
+                            '("e" evil-iedit-state/iedit-mode-from-expand-region)))))))
 
 ;; redefine iedit-done to prevent iedit from putting the occurrence on the
 ;; kill-ring for no useful reason.
