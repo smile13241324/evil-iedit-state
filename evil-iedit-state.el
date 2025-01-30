@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil iedit mnemonic
 ;; Created: 12 Dec 2014
-;; Version: 1.3
+;; Version: 1.4
 ;; Package-Requires: ((evil "1.0.9") (iedit "0.9.9.9"))
 ;; URL: https://github.com/syl20bnr/evil-iedit-state
 
@@ -182,7 +182,7 @@ If INTERACTIVE is non-nil then COMMAND is called interactively."
 Save the current occurrence string locally and globally.  Save
 the initial string globally."
   (when iedit-buffering
-      (iedit-stop-buffering))
+    (iedit-stop-buffering))
   (setq iedit-last-occurrence-local (iedit-current-occurrence-string))
   (setq iedit-last-occurrence-global iedit-last-occurrence-local)
   (setq iedit-last-initial-string-global iedit-initial-string-local)
@@ -232,9 +232,9 @@ the initial string globally."
 (define-key evil-iedit-state-map [escape]    'evil-iedit-state/quit-iedit-mode)
 ;; override overlay keymap to toggle occurrences
 (define-key iedit-occurrence-keymap-default
-  (kbd "TAB") 'iedit-toggle-selection)
+            (kbd "TAB") 'iedit-toggle-selection)
 (define-key iedit-occurrence-keymap-default
-  [tab] 'iedit-toggle-selection)
+            [tab] 'iedit-toggle-selection)
 
 (define-key evil-iedit-insert-state-map (kbd "C-g") 'evil-iedit-state/quit-iedit-mode)
 (define-key evil-iedit-insert-state-map [escape]    'evil-iedit-state)
